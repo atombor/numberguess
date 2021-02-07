@@ -64,29 +64,22 @@ public class GuessTheNumberController {
     }
 
     public enum GuessResultStatus {
-        LOWER("Your guess: " + GUESS_PLACEHOLDER + ", is lower, than the expected one.", false),
-        HIGHER("Your guess: " + GUESS_PLACEHOLDER + " is higher than the expected one.", false),
-        CATCH("Your guess: " + GUESS_PLACEHOLDER + " is correct!", false),
-        USER_ERROR("Game is not started with the provided playerId!", true),
-        GAME_ENDED_ERROR("Game is already ended for the given playerId!", true),
-        INPUT_ERROR("Your guess is not in the expected range: " + MINIMUM + "-" + MAXIMUM, true),
-        UNKNOW_ERROR("Unknown error!", true);
+        LOWER("Your guess: " + GUESS_PLACEHOLDER + ", is lower, than the expected one."),
+        HIGHER("Your guess: " + GUESS_PLACEHOLDER + " is higher than the expected one."),
+        CATCH("Your guess: " + GUESS_PLACEHOLDER + " is correct!"),
+        USER_ERROR("Game is not started with the provided playerId!"),
+        GAME_ENDED_ERROR("Game is already ended for the given playerId!"),
+        INPUT_ERROR("Your guess is not in the expected range: " + MINIMUM + "-" + MAXIMUM),
+        UNKNOW_ERROR("Unknown error!");
 
         private final String messageOfResult;
-        private final boolean error;
 
-        GuessResultStatus(String messageOfResult, boolean error) {
+        GuessResultStatus(String messageOfResult) {
             this.messageOfResult = messageOfResult;
-            this.error = error;
         }
 
         String messageForGuess(short guess) {
             return messageOfResult.replaceFirst(GUESS_PLACEHOLDER, String.valueOf(guess));
         }
-
-        public boolean isError() {
-            return error;
-        }
     }
-
 }

@@ -1,6 +1,5 @@
 package com.tombor.numberguess;
 
-import com.tombor.numberguess.persistence.Game;
 import com.tombor.numberguess.persistence.GameService;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -17,7 +16,7 @@ public class StartGameController {
     private static final String PLAYER_NAME = "PLAYER_NAME";
     private static final String messageTemplate = "Welcome to the Number Guess Game, " + PLAYER_NAME + "!" +
             "This game is about to guess a number between " + MINIMUM + " and " + MAXIMUM +
-            "Your number is ready for guessing! Good Luck!";
+            " Your number is ready for the game! Good Luck!";
 
     final GameService gameService;
 
@@ -30,8 +29,7 @@ public class StartGameController {
         final short solution = (short) new Random().nextInt(100);
         final LocalDateTime startTime = LocalDateTime.now();
 
-        Game game = gameService.saveNewGame(name, solution, startTime);
-
-        return new StartGame(game.getPlayerid(), name, startTime, messageTemplate.replaceFirst(PLAYER_NAME, name));
+        final long playerid = gameService.saveNewGame(name, solution, startTime).getPlayerid();
+        return new StartGame(playerid, name, startTime, messageTemplate.replaceFirst(PLAYER_NAME, name));
     }
 }
